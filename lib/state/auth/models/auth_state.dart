@@ -16,7 +16,7 @@ class AuthState {
     required this.isLoading,
     required this.userId,
   });
-
+  // unknown could be called logged out.
   const AuthState.unknown()
       : result = null,
         isLoading = false,

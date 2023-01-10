@@ -43,6 +43,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   Future<void> loginWithFacebook() async {
     state = state.copyWithIsLoading(true);
+
     final result = await _authenticator.loginWithFacebook();
     final userId = _authenticator.userId;
     if (result == AuthResult.success && userId != null) {
@@ -50,6 +51,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         userId: userId,
       );
     }
+
     state = AuthState(
       result: result,
       isLoading: false,

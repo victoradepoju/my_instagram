@@ -71,11 +71,11 @@ class MainView extends StatelessWidget {
         builder: (_, ref, child) {
           return TextButton(
             onPressed: () async {
-              // await ref.read(authStateProvider.notifier).logOut();
-              LoadingScreen.instance().show(
-                context: context,
-                text: 'Hello world',
-              );
+              await ref.read(authStateProvider.notifier).logOut();
+              // LoadingScreen.instance().show(
+              //   context: context,
+              //   text: 'Hello world',
+              // );
             },
             child: const Text(
               'Logout',

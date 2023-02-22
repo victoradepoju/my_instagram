@@ -6,6 +6,7 @@ import 'package:instagram_clone/state/auth/providers/is_logged_in_provider.dart'
 import 'package:instagram_clone/state/providers/is_loading_provider.dart';
 import 'package:instagram_clone/views/components/loading/loading_screen.dart';
 import 'package:instagram_clone/views/login/login_view.dart';
+import 'package:instagram_clone/views/main/main_view.dart';
 import 'firebase_options.dart';
 
 import 'dart:developer' as devtools show log;
@@ -71,32 +72,32 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// for when you're already logged in
-class MainView extends StatelessWidget {
-  const MainView({super.key});
+// // for when you're already logged in
+// class MainView extends StatelessWidget {
+//   const MainView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Main View'),
-      ),
-      body: Consumer(
-        builder: (_, ref, child) {
-          return TextButton(
-            onPressed: () async {
-              await ref.read(authStateProvider.notifier).logOut();
-              LoadingScreen.instance().show(
-                context: context,
-                text: 'Hello world',
-              );
-            },
-            child: const Text(
-              'Logout',
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Main View'),
+//       ),
+//       body: Consumer(
+//         builder: (_, ref, child) {
+//           return TextButton(
+//             onPressed: () async {
+//               await ref.read(authStateProvider.notifier).logOut();
+//               LoadingScreen.instance().show(
+//                 context: context,
+//                 text: 'Hello world',
+//               );
+//             },
+//             child: const Text(
+//               'Logout',
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }

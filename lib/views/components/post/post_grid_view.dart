@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:instagram_clone/state/posts/models/post.dart';
 import 'package:instagram_clone/views/components/post/posts_thumbnail_view.dart';
+import 'package:instagram_clone/views/post_comments/post_comments_view.dart';
 
 class PostsGridView extends StatelessWidget {
   final Iterable<Post> posts;
@@ -25,10 +26,20 @@ class PostsGridView extends StatelessWidget {
         // use elementAt for iterables, not posts[index] which is for lists
         final post = posts.elementAt(index);
         return PostThumbnailView(
-            post: post,
-            onTapped: () {
-              // TODO: navigate to the post detail page
-            });
+          post: post,
+          onTapped: () {
+            // TODO: remove this code before we go to details view
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => PostCommentsView(
+                  postId: post.postId,
+                ),
+              ),
+            );
+            // TODO: navigate to the post detail page
+          },
+        );
       },
     );
   }

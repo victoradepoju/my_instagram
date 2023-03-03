@@ -8,6 +8,10 @@ import 'package:instagram_clone/state/comments/providers/post_comments_provider.
 import 'package:instagram_clone/state/comments/providers/send_comment_provider.dart';
 
 import 'package:instagram_clone/state/posts/typedefs/post_id.dart';
+import 'package:instagram_clone/views/components/animations/empty_contents_with_text_animation_view.dart';
+import 'package:instagram_clone/views/components/animations/error_animation_view.dart';
+import 'package:instagram_clone/views/components/animations/loading_animation_view.dart';
+import 'package:instagram_clone/views/components/comment/comment_tile.dart';
 import 'package:instagram_clone/views/constants/strings.dart';
 import 'package:instagram_clone/views/extensions/dismiss_keyboard.dart';
 
@@ -30,6 +34,7 @@ class PostCommentsView extends HookConsumerWidget {
       ),
     );
 
+    // this also provides an AsyncValue as seen from its return type
     final comment = ref.watch(
       postCommentsProvider(
         request.value,
@@ -69,6 +74,84 @@ class PostCommentsView extends HookConsumerWidget {
             ),
           ),
         ],
+      ),
+      body: SafeArea(
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            Expanded(
+              flex: 4,
+              child: comment.when(
+                data: (comments) {
+                  if (comments.isEmpty) {
+                    return const SingleChildScrollView(
+                      child: EmptyContentsWithTextAnimationView(
+                        text: Strings.noCommentsYet,
+                      ),
+                    );
+                  }
+                  return RefreshIndicator(
+                    onRefresh: () {
+                      ref.refresh(
+                        postCommentsProvider(
+                          request.value,
+                        ),
+                      );
+                      // to keep the refresh widget on screen for a few seconds
+                      return Future.delayed(
+                        const Duration(
+                          seconds: 1,
+                        ),
+                      );
+                    },
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(8.0),
+                      itemCount: comments.length,
+                      itemBuilder: (context, index) {
+                        final comment = comments.elementAt(index);
+                        return CommentTile(
+                          comment: comment,
+                        );
+                      },
+                    ),
+                  );
+                },
+                loading: () => const LoadingAnimatonView(),
+                error: (error, stackTrace) {
+                  return const ErrorAnimatonView();
+                },
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8.0,
+                    right: 8.0,
+                  ),
+                  child: TextField(
+                    textInputAction: TextInputAction.send,
+                    controller: commentController,
+                    onSubmitted: (comment) {
+                      if (comment.isNotEmpty) {
+                        _submitCommentWithController(
+                          commentController,
+                          ref,
+                        );
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: Strings.writeYourCommentHere,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

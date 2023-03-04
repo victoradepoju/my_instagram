@@ -32,7 +32,7 @@ class UserPostsView extends ConsumerWidget {
           }
         },
         error: (error, stackTrace) {
-          return const ErrorAnimatonView();
+          return const ErrorAnimationView();
         },
         loading: () {
           return const LoadingAnimatonView();

@@ -118,7 +118,7 @@ class PostCommentsView extends HookConsumerWidget {
                 },
                 loading: () => const LoadingAnimatonView(),
                 error: (error, stackTrace) {
-                  return const ErrorAnimatonView();
+                  return const ErrorAnimationView();
                 },
               ),
             ),

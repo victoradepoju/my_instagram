@@ -45,7 +45,7 @@ class PostVideoView extends HookWidget {
         return const LoadingAnimatonView();
       default:
         // this shouldn't be called
-        return const ErrorAnimatonView();
+        return const ErrorAnimationView();
     }
   }
 }

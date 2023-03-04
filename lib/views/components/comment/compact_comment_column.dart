@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/state/comments/models/comment.dart';
 import 'package:instagram_clone/views/components/comment/compact_comment_tile.dart';
 
-class MyWidget extends StatelessWidget {
+class CompactCommentColumn extends StatelessWidget {
   final Iterable<Comment> comments;
-  const MyWidget({
+  const CompactCommentColumn({
     Key? key,
     required this.comments,
   }) : super(key: key);

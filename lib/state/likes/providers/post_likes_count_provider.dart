@@ -6,7 +6,7 @@ import 'package:instagram_clone/state/constants/firebase_collection_name.dart';
 import 'package:instagram_clone/state/constants/firebase_field_name.dart';
 import 'package:instagram_clone/state/posts/typedefs/post_id.dart';
 
-final postLikesCountProvider = StreamProvider.family<int, PostId>((
+final postLikesCountProvider = StreamProvider.family.autoDispose<int, PostId>((
   ref,
   PostId postId,
 ) {
